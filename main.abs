@@ -1,0 +1,54 @@
+f helix(){
+	repo = "https://github.com/helix-editor/helix.git"
+	dir = "~/Documents/Github/Lang/Rust/helix"
+
+	`git clone $repo $dir`
+	`cargo install --path $dir/helix-term`
+
+	`mkdir ~/.config/helix`
+	`ln -s $dir/runtime ~/.config/helix/runtime`
+	`cp $dir/contrib/Helix.desktop ~/.local/share/applications`
+
+	hx = `which hx`
+	`update-alternatives --install "/usr/bin/editor" editor $hx 100`
+}
+
+f zellij(){
+	repo = "https://github.com/zellij-org/zellij.git"
+	dir = "~/Documents/Github/Lang/Rust/zellij"
+	
+	`git clone $repo $dir`
+	`cargo install --path $dir --locked`
+}
+
+f alacritty(){
+	repo = "https://github.com/alacritty/alacritty.git"
+	dir = "~/Documents/Github/Lang/Rust/alacritty"
+
+	# dependencies
+	`apt install cmake pkg-config libfreetype6-dev libfontconfig1-dev libxcb-xfixes0-dev libxkbcommon-dev python3`
+	
+	`git clone $repo $dir`
+	`cargo install --path $dir/alacritty`
+}
+
+f startship(){
+	repo = "https://github.com/starship/starship.git"
+	dir = "~/Documents/Github/Lang/Rust/starship"
+	
+	`git clone $repo $dir`
+	`cargo install --path $dir --locked`
+
+	'eval "$(starship init zsh)"' >> '~/.zshrc'
+}
+
+f zoxide(){
+	repo = "https://github.com/ajeetdsouza/zoxide.git"
+	dir = "~/Documents/Github/Lang/Rust/zoxide"
+	
+	`git clone $repo $dir`
+	`cargo install --path $dir --locked`
+
+	'eval "$(zoxide init zsh)"' >> '~/.zshrc'
+}
+
