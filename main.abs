@@ -1,3 +1,5 @@
+PWD = pwd()
+
 f helix(){
 	repo = "https://github.com/helix-editor/helix.git"
 	dir = "~/Documents/Github/Lang/Rust/helix"
@@ -6,11 +8,12 @@ f helix(){
 	`cargo install --path $dir/helix-term`
 
 	`mkdir ~/.config/helix`
+	`ln -s $PWD/config/helix/config.toml ~/.config/helix/config.toml`
 	`ln -s $dir/runtime ~/.config/helix/runtime`
-	`cp $dir/contrib/Helix.desktop ~/.local/share/applications`
 
 	hx = `which hx`
-	`update-alternatives --install "/usr/bin/editor" editor $hx 100`
+	`update-alternatives --install /usr/bin/editor editor $hx 100`
+	`cp $dir/contrib/Helix.desktop ~/.local/share/applications`
 }
 
 f zellij(){
@@ -19,6 +22,9 @@ f zellij(){
 	
 	`git clone $repo $dir`
 	`cargo install --path $dir --locked`
+
+	`mkdir ~/.config/zellij`
+	`ln -s $PWD/config/zellij/config.kdl ~/.config/zellij/config.kdl`
 }
 
 f alacritty(){
@@ -30,6 +36,9 @@ f alacritty(){
 	
 	`git clone $repo $dir`
 	`cargo install --path $dir/alacritty`
+
+	`mkdir ~/.config/alacritty`
+	`ln -s $PWD/config/alacritty/config.yml ~/.config/alacritty/alacritty.yml`
 }
 
 f startship(){
@@ -52,3 +61,11 @@ f zoxide(){
 	'eval "$(zoxide init zsh)"' >> '~/.zshrc'
 }
 
+
+f rust_tools(){
+	# binary installer
+	`cargo install cargo-binstall`
+
+	# shell plugin manager
+	`cargo binstall sheldon -y`
+}
