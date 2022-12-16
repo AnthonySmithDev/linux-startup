@@ -1,5 +1,53 @@
 PWD = pwd()
 
+f dependencies(){
+	`sudo apt install -y build-essential`
+
+	# clipboard
+	`sudo apt install -y xsel xclip wl-clipboard`
+
+	# http request
+	`sudo apt install -y wget curl`
+
+	# open ssl
+	`sudo apt install -y libssl-dev`
+
+	# exa git
+	`sudo apt install -y libgit2-dev`
+
+	# ssh
+	`sudo apt install -y openssh-server`
+
+	# system info
+	`sudo apt install -y neofetch`
+}
+
+# install browser: chrome, brave, vieb
+
+f vieb(){
+	`ln -s $PWD/config/vieb/viebrc ~/.config/Vieb/viebrc`
+}
+
+# install input-remapper
+
+# install regolith desktop
+
+f rust(){
+	`cargo install --locked cargo-binstall`
+	`cargo install --locked amber`
+	`cargo install --locked sd`
+}
+
+f golang(){
+	go install github.com/jesseduffield/lazydocker@latest
+	go install github.com/jesseduffield/lazygit@latest
+
+}
+
+f nodejs(){
+	npm install -g gitmoji-cli
+}
+
 f helix(){
 	repo = "https://github.com/helix-editor/helix.git"
 	dir = "~/Documents/Github/Lang/Rust/helix"
@@ -14,6 +62,9 @@ f helix(){
 	hx = `which hx`
 	`update-alternatives --install /usr/bin/editor editor $hx 100`
 	`cp $dir/contrib/Helix.desktop ~/.local/share/applications`
+
+	# opacity
+	`ambr '"ui.background"= { bg = "background" }' '"ui.background"= {}' ~/.config/helix/runtime/themes`
 }
 
 f zellij(){
@@ -32,40 +83,27 @@ f alacritty(){
 	dir = "~/Documents/Github/Lang/Rust/alacritty"
 
 	# dependencies
-	`apt install cmake pkg-config libfreetype6-dev libfontconfig1-dev libxcb-xfixes0-dev libxkbcommon-dev python3`
+	`sudo apt install -y cmake pkg-config libfreetype6-dev libfontconfig1-dev libxcb-xfixes0-dev libxkbcommon-dev python3`
 	
 	`git clone $repo $dir`
 	`cargo install --path $dir/alacritty`
 
 	`mkdir ~/.config/alacritty`
 	`ln -s $PWD/config/alacritty/config.yml ~/.config/alacritty/alacritty.yml`
+
+	alacritty = `which alacritty`
+	`sudo update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator $alacritty 50` 
 }
 
-f startship(){
-	repo = "https://github.com/starship/starship.git"
-	dir = "~/Documents/Github/Lang/Rust/starship"
-	
-	`git clone $repo $dir`
-	`cargo install --path $dir --locked`
+f shell(){
+	`sudo apt install -y zsh`
+	`cargo install --locked starship`
+	`cargo install --locked sheldon`
+	`cargo install --locked zoxide`
+	`cargo install --locked exa`
 
-	'eval "$(starship init zsh)"' >> '~/.zshrc'
-}
+	`mkdir ~/.config/sheldon`
+	`ln -s $PWD/config/sheldon/plugins.toml ~/.config/sheldon/plugins.toml`
 
-f zoxide(){
-	repo = "https://github.com/ajeetdsouza/zoxide.git"
-	dir = "~/Documents/Github/Lang/Rust/zoxide"
-	
-	`git clone $repo $dir`
-	`cargo install --path $dir --locked`
-
-	'eval "$(zoxide init zsh)"' >> '~/.zshrc'
-}
-
-
-f rust_tools(){
-	# binary installer
-	`cargo install cargo-binstall`
-
-	# shell plugin manager
-	`cargo binstall sheldon -y`
+	`ln -s $PWD/config/zsh/.zshrc ~/.zshrc`
 }
