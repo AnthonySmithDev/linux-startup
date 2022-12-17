@@ -60,7 +60,7 @@ f helix(){
 	`ln -s $dir/runtime ~/.config/helix/runtime`
 
 	hx = `which hx`
-	`update-alternatives --install /usr/bin/editor editor $hx 100`
+	`sudo update-alternatives --install /usr/bin/editor editor $hx 100`
 	`cp $dir/contrib/Helix.desktop ~/.local/share/applications`
 
 	# opacity
