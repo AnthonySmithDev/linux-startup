@@ -32,6 +32,11 @@ f vieb(){
 
 # install regolith desktop
 
+f picom(){
+	`mkdir ~/.config/regolith2/picom`
+	`ln -s $PWD/config/picom/config ~/.config/regolith2/picom/config`
+}
+
 f rust(){
 	`cargo install --locked cargo-binstall`
 	`cargo install --locked amber`
@@ -107,3 +112,5 @@ f shell(){
 
 	`ln -s $PWD/config/zsh/.zshrc ~/.zshrc`
 }
+
+# install docker
