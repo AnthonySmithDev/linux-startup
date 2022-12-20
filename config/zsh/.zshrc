@@ -13,4 +13,9 @@ export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PR
 
 export GOPATH="$HOME/go"; export GOROOT="$HOME/.go"; export PATH="$GOPATH/bin:$PATH"; # g-install: do NOT edit, see https://github.com/stefanmaric/g
 
+export PATH="$PATH:/home/anthony/.local/bin"
+
 colorscript random
+
+alias lzg="lazygit"
+alias lzd="lazydocker"

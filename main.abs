@@ -31,6 +31,21 @@ f vieb(){
 # install input-remapper
 
 # install regolith desktop
+f regolith_desktop(){
+	`wget -qO - https://regolith-desktop.org/regolith.key | gpg --dearmor | sudo tee /usr/share/keyrings/regolith-archive-keyring.gpg > /dev/null`
+
+	arch = `dpkg --print-architecture`
+	release = `lsb_release -cs`
+	`echo deb "[arch=amd64 jigned-by=/usr/share/keyrings/regolith-archive-keyring.gpg] https://regolith-desktop.org/release-ubuntu-$release-$arch $release main" | sudo tee /etc/apt/sources.list.d/regolith.list`
+
+	`sudo apt update`
+	`sudo apt install regolith-desktop regolith-compositor-picom-glx`
+	`sudo apt upgrade`
+
+	# reboot
+	`sudo apt install regolith-look-*`
+	`sudo apt install i3xrocks-focused-window-name i3xrocks-rofication i3xrocks-info i3xrocks-app-launcher i3xrocks-memory`
+}
 
 f picom(){
 	`mkdir ~/.config/regolith2/picom`
@@ -44,13 +59,13 @@ f rust(){
 }
 
 f golang(){
-	go install github.com/jesseduffield/lazydocker@latest
-	go install github.com/jesseduffield/lazygit@latest
+	`go install github.com/jesseduffield/lazydocker@latest`
+	`go install github.com/jesseduffield/lazygit@latest`
 
 }
 
 f nodejs(){
-	npm install -g gitmoji-cli
+	`npm install -g gitmoji-cli`
 }
 
 f helix(){
@@ -70,6 +85,13 @@ f helix(){
 
 	# opacity
 	`ambr '"ui.background"= { bg = "background" }' '"ui.background"= {}' ~/.config/helix/runtime/themes`
+}
+
+f install_lsp(){
+	`npm install -g bash-language-server`
+	`pip install cmake-language-server`
+	`sudo apt install clang`
+	`go install golang.org/x/tools/gopls@latest`
 }
 
 f zellij(){
@@ -114,3 +136,24 @@ f shell(){
 }
 
 # install docker
+f docker(){
+	`sudo apt-get update`
+	`sudo apt install ca-certificates curl gnupg lsb-release`
+
+	`sudo mkdir -p /etc/apt/keyrings`
+	`curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg`
+
+	arch = `dpkg --print-architecture`
+	release = `lsb_release -cs`
+	`echo "deb [arch=$arch signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $release stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null`
+
+	`sudo apt update`
+	`sudo apt install docker-ce docker-ce-cli containerd.io docker-compose-plugin`
+	`sudo apt upgrade`
+
+	`sudo groupadd docker`
+	`sudo usermod -aG docker $USER`
+
+	# reboot
+	`docker run hello-world`
+}

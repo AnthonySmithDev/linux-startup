@@ -118,7 +118,7 @@ inactive-dim-fixed = true;
 #################################
 
 blur-method = "dual_kawase"
-blur-strength = 4
+blur-strength = 2
 # blur-background = true;
 # blur-background-frame = true;
 # blur-background-fixed = false;
